@@ -1,0 +1,168 @@
+# Replace "##" with 20-29 depending on team
+configure
+set mgt-config users admin password
+	# enter the release code
+commit
+exit
+set cli scripting-mode on
+configure
+
+# 1 To Run First
+set deviceconfig system permitted-ip 172.20.242.100
+set deviceconfig system service disable-telnet yes
+set deviceconfig system login-banner AuthorizedAccessOnly
+
+set rulebase security rules GoogleDNS action allow from any to any source any destination 8.8.8.8
+set rulebase security rules GoogleDNS application dns service application-default
+set rulebase security rules DNSoutBlock action allow from User to External source any destination any profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules DNSoutBlock action allow from Public to External source any destination any
+set rulebase security rules DNSoutBlock application dns service application-default
+set rulebase security rules NTPandSYSLOGandDNS action allow from User to Public source any destination any profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules NTPandSYSLOGandDNS action allow from Internal to Public source any destination any profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules NTPandSYSLOGandDNS action allow from Public to User source any destination any
+set rulebase security rules NTPandSYSLOGandDNS action allow from Internal to User source any destination any
+set rulebase security rules NTPandSYSLOGandDNS application ntp service application-default
+set rulebase security rules NTPandSYSLOGandDNS application syslog service application-default
+set rulebase security rules NTPandSYSLOGandDNS application dns service application-default
+set rulebase security rules NTPandSYSLOGandDNS application ssl service application-default
+set rulebase security rules NTPandSYSLOGandDNS application web-browsing service application-default
+set rulebase security rules NTPout action allow from User to External source any destination any profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules NTPout action allow from Public to External source any destination any profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules NTPout action allow from Internal to External source any destination any profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules NTPout application ntp service application-default
+
+set rulebase security rules CentOStoUbuntuDB action allow from any to any source 172.20.241.30 destination 172.25.##.23 profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules CentOStoUbuntuDB from any source 172.25.##.11
+set rulebase security rules CentOStoUbuntuDB application any service any
+
+set rulebase security rules PaloAltoOut action allow from User to External source 172.20.242.150 destination any
+set rulebase security rules PaloAltoOut action allow from User to Public source 172.20.242.150 destination any
+set rulebase security rules PaloAltoOut action allow from Internal to External source 172.20.242.150 destination any
+set rulebase security rules PaloAltoOut action allow from Internal to Public source 172.20.242.150 destination any
+set rulebase security rules PaloAltoOut application paloalto-updates service any
+set rulebase security rules PaloAltoOut application dns service any
+set rulebase security rules PaloAltoOut application ntp service any
+
+set rulebase security rules Win10EXTERNAL action allow from External to External source 172.31.##.5 destination any
+set rulebase security rules Win10EXTERNAL application any service any
+
+set rulebase security rules CentOSin action allow from External to Public source any destination 172.25.##.11 profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules CentOSin application ssl service application-default
+set rulebase security rules CentOSin application web-browsing service application-default
+
+set rulebase security rules 2008DNStoUbuntuDNS action allow from User to User source 172.20.242.200 destination 172.20.242.10 profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules 2008DNStoUbuntuDNS application dns service application-default
+set rulebase security rules DEBIANtoUBUNTU action allow from Internal to User source 172.20.240.20 destination 172.20.242.10 profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules DEBIANtoUBUNTU application mysql service application-default
+
+set rulebase security rules UbuntuDNSto2008DNS action allow from User to User source 172.20.242.10 destination 172.20.242.200 profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules UbuntuDNSto2008DNS application dns service application-default
+set rulebase security rules UbuntuDNSto2008DNS application ntp service application-default
+set rulebase security rules UbuntuDNSto2008DNS application active-directory service application-default
+set rulebase security rules UbuntuDNSto2008DNS application ldap service application-default
+set rulebase security rules UbuntuDNSto2008DNS application ms-ds-smb service application-default
+set rulebase security rules UbuntuDNSto2008DNS application msrpc service application-default
+set rulebase security rules UbuntuDNSto2008DNS application ms-ds-smb service application-default
+set rulebase security rules UbuntuDNSto2008DNS application netbios-ss service application-default
+set rulebase security rules UbuntuDNSto2008DNS application netbios-dg service application-default
+
+set rulebase security rules CentOSDNSto2008DNS action allow from Public to User source 172.20.241.30 destination 172.20.242.200 profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules CentOSDNSto2008DNS application dns service application-default
+set rulebase security rules CentOSDNSto2008DNS application ntp service application-default
+set rulebase security rules CentOSDNSto2008DNS application active-directory service application-default
+set rulebase security rules CentOSDNSto2008DNS application ldap service application-default
+set rulebase security rules CentOSDNSto2008DNS application ms-ds-smb service application-default
+set rulebase security rules CentOSDNSto2008DNS application msrpc service application-default
+set rulebase security rules CentOSDNSto2008DNS application netbios-ss service application-default
+set rulebase security rules CentOSDNSto2008DNS application netbios-dg service application-default
+set rulebase security rules CentOSDNSto2008DNS application netbios-ns service application-default
+
+set rulebase security rules UbuntuDNSin action allow from External to User source any destination 172.25.##.23 profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules UbuntuDNSin application dns service application-default
+
+set rulebase security rules DEBIANin action allow from External to Internal source any destination 172.25.##.20 profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules DEBIANin application web-browsing service application-default
+set rulebase security rules DEBIANin application smtp service application-default
+set rulebase security rules DEBIANin application pop3 service application-default
+set rulebase security rules DEBIANin application ssl service application-default
+set rulebase security rules DEBIANin application imap service application-default
+
+set rulebase security rules 2008DNSin action allow from External to User source any destination 172.25.##.27 profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules 2008DNSin application dns service application-default
+
+set rulebase security rules Publicout-CentOS action allow from Public to External source 172.20.241.30 destination any profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules Publicout-CentOS application ssl service application-default
+set rulebase security rules Publicout-CentOS application ftp service application-default
+set rulebase security rules Publicout-CentOS application yum service application-default
+set rulebase security rules Publicout-CentOS application github service application-default
+set rulebase security rules Publicout-CentOS application git-base service application-default
+set rulebase security rules Publicout-CentOS application ssh service application-default
+set rulebase security rules Publicout-CentOS application web-browsing service application-default
+
+set rulebase security rules Userout-Ubuntu action allow from User to External source 172.20.242.10 destination any profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules Userout-Ubuntu application dns service application-default
+set rulebase security rules Userout-Ubuntu application web-browsing service application-default
+set rulebase security rules Userout-Ubuntu application ssl service application-default
+set rulebase security rules Userout-Ubuntu application apt-get service application-default
+
+set rulebase security rules SERVERout-Phantom action allow from Internal to External source 172.20.240.10 destination any profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules SERVERout-Phantom application web-browsing service application-default
+set rulebase security rules SERVERout-Phantom application ssl service application-default
+set rulebase security rules SERVERout-Phantom application git-base service application-default
+set rulebase security rules SERVERout-Phantom application ms-update service application-default
+set rulebase security rules SERVERout-Phantom application github service application-default
+set rulebase security rules SERVERout-Phantom application ssh service application-default
+
+set rulebase security rules SERVERout-2008AD action allow from User to External source 172.20.242.200 destination any profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules SERVERout-2008AD application ssl service application-default
+set rulebase security rules SERVERout-2008AD application ms-update service application-default
+set rulebase security rules SERVERout-2008AD application dns service application-default
+set rulebase security rules SERVERout-2008AD application web-browsing service application-default
+
+set rulebase security rules SERVERout-Debian action allow from Internal to External source 172.20.240.20 destination any profile-setting profiles spyware strict virus default vulnerability strict
+set rulebase security rules SERVERout-Debian application pop3 service application-default
+set rulebase security rules SERVERout-Debian application imap service application-default
+set rulebase security rules SERVERout-Debian application dns service application-default
+set rulebase security rules SERVERout-Debian application ocsp service application-default
+set rulebase security rules SERVERout-Debian application smtp service application-default
+set rulebase security rules SERVERout-Debian application ssh service application-default
+set rulebase security rules SERVERout-Debian application github service application-default
+set rulebase security rules SERVERout-Debian application git-base service application-default
+set rulebase security rules SERVERout-Debian application ssl service application-default
+set rulebase security rules SERVERout-Debian application subversion service application-default
+set rulebase security rules SERVERout-Debian application sourceforge service application-default
+set rulebase security rules SERVERout-Debian application apt-get service application-default
+set rulebase security rules SERVERout-Debian application web-browsing service application-default
+set rulebase security rules INTERZONEUser action allow from User to User source any destination any
+set rulebase security rules INTERZONEUser application any service any
+set rulebase security rules INTERZONEInternal action allow from Internal to Internal source any destination any
+set rulebase security rules INTERZONEInternal application any service any
+set rulebase security rules INTERZONEPublic action allow from Public to Public source any destination any
+set rulebase security rules INTERZONEPublic application any service any
+set rulebase security rules DENYALLEXTERNAL action deny from External to any source any destination any
+set rulebase security rules DENYALLEXTERNAL application any service any
+set rulebase security rules DENYALL action deny from any to any source any destination any
+set rulebase security rules DENYALL application any service any
+
+
+# 2 , To Run Later
+set address Private1 ip-range 10.0.0.0-10.255.255.255
+set address Private2 ip-range 172.16.0.0-172.16.255.255
+set address Private3 ip-range 192.168.0.0-192.168.255.255
+set rulebase security rules PrivateIPOutNoNo action deny from User to External source any destination Private1
+set rulebase security rules PrivateIPOutNoNo action deny from User to External source any destination Private2
+set rulebase security rules PrivateIPOutNoNo action deny from Public to External source any destination Private3
+set rulebase security rules PrivateIPOutNoNo application any service any
+
+set network profiles zone-protection-profile Default discard-overlapping-tcp-segment-mismatch yes discard-unknown-option yes tcp-reject-non-syn yes flood tcp-syn enable yes syn-cookies maximal-rate 500 alarm-rate 300 active-rate 400
+set network profiles zone-protection-profile Default flood icmp enable yes
+set network profiles zone-protection-profile Default flood udp enable yes
+set network profiles zone-protection-profile Default flood other-ip enable yes
+set network profiles zone-protection-profile Default flood icmpv6 enable yes
+set network profiles interface-management-profile none
+
+# 3 , Break the Glass
+set rulebase security rules ZONEuserOUT action allow from User to External source any destination any
+set rulebase security rules ZONEInternalOUT action allow from Internal to External source any destination any
+set rulebase security rules ZONEPublicOUT action allow from Public to External source any destination any
+
